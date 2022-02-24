@@ -35,6 +35,9 @@ public class Ahorcadito {
     public void setPalabraABuscar(String[] palabraABuscar) {
         this.palabraABuscar = palabraABuscar;
     }
+    /**
+     * Funcion para mostrar la palabra a buscar desde el vector donde se guarda la misma (son distintas)
+     */
     public void getPalabraABuscar() {
         for (int i = 0; i < this.palabraABuscar.length; i++) {
             System.out.println(this.palabraABuscar[i]);
@@ -68,7 +71,9 @@ public class Ahorcadito {
     }
 
    
-
+/*
+    Se dimensiona el vector de tamaño numPal que a su vez tiene el tamaño de la palabra
+    */
 String palabraABuscar[] = new String[numPal];
 String palabraEncontrada="";
 

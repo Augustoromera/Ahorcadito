@@ -15,7 +15,14 @@ public class ClasePrincipal {
         juego(as, a);
 
     }
-
+/**
+ * Funcion que recibe dos parametros, el objeto ahorcadito donde se guardaran los datos de la partida (a)
+ * y el parametro as( donde se utilizaran los metodos que trae dicha clase para el funcionamiento del juego)
+ * Esta funcion utiliza un bucle donde se utilizan los distintos metodos de la clase servicio hasta que el juego
+ * se termina
+ * @param as
+ * @param s 
+ */
     public static void juego(AhorcaditoServicio as, Ahorcadito s) {
         Scanner leer = new Scanner(System.in);
 

@@ -6,7 +6,12 @@ import java.util.Scanner;
 public class AhorcaditoServicio {
 
     Ahorcadito objetoAhorcadito = new Ahorcadito();
-
+/*
+    Funcion que crea el juego 
+    donde se guardara la palabra a buscar en un vector 
+    ademas la palabra a buscar tambien en un string
+    y la cantidad de jugadas maximas
+    */
     public Ahorcadito crearJuego() {
         Scanner leer = new Scanner(System.in).useDelimiter("\n");
         Ahorcadito e = new Ahorcadito();
@@ -31,13 +36,27 @@ public class AhorcaditoServicio {
 
     public AhorcaditoServicio() {
     }
-
+/**
+ * No indica la longitud de la palabra a buscar pero de momento es codigo basura ya que no se la utiliza 
+ * @param e 
+ */
     public void longitud(Ahorcadito e) {
         System.out.println("La longitud de la palabra es de :" + e.getPal().length() + " letras");
     }
-//    Método buscar(letra): este método recibe una letra dada por el usuario y busca sila
-//letra ingresada es parte de la palabra o no. También informará si la letra estaba o no
 
+/**
+ * Lo que devuelve es el objeto e de tipo ahorcadito sii se acerto pondra la o las letras en el vector
+ * sino restara intentos
+ * tambien pone la primera y la ultima letra como ayuda restando las letras por encontrar y sumando las letras encontradas
+ * Nos indica si la letra fue encontrada en tal caso el numero de veces y cuantas letras faltan por encontrar
+ * Recibe l como la letra ingresada para jugar
+ * e seria el objeto que contiene los datos de tipo ahorcadito
+ * contiene el vector que posee la palabra que uno va encontrando mas las palabras que faltan reemplazadas como guion bajo
+ * @param l
+ * @param e
+ * @param palEncontrada
+ * @return 
+ */
     public Ahorcadito buscar(String l, Ahorcadito e, String[] palEncontrada) {
         String pal;
         int cant = 0;
@@ -70,7 +89,6 @@ public class AhorcaditoServicio {
             } else if (palEncontrada[i].equalsIgnoreCase(" _ ") || palEncontrada[i].equalsIgnoreCase("")) {
                 palEncontrada[i] = " _ ";
             }
-//            e.setPalabraEncontrada(e.getPalabraEncontrada().concat(palEncontrada[i]));
         }
         e.setCantLetEnco(e.getCantLetEnco() + cant);
         if (cant == 0) {
@@ -80,7 +98,7 @@ public class AhorcaditoServicio {
             System.out.println("La letra fue encontrada " + cant + " veces");
         }
         System.out.println("Le faltan " + (e.getPal().length() - e.getCantLetEnco()) + " por encontrar");
-//        System.out.println(e.getPalabraEncontrada());
+        
         System.out.println("");
         for (int i = 0; i < e.getPal().length(); i++) {
             System.out.print(palEncontrada[i]);
@@ -90,13 +108,22 @@ public class AhorcaditoServicio {
         e.setInicios(1);
         return e;
     }
-
+/**
+ * Funcion que calcula los intentos o vidas que le queda al jugador
+ * @param e
+ * @return 
+ */
     public Ahorcadito intentos(Ahorcadito e) {
         System.out.println("Sus intentos restantes son: " + e.getCantJugMax());
 
         return e;
     }
-
+/**
+ * funcion que determina si el juego termina 
+ * Ya sea por que los intentos lleguen a 0 o por que la cantidad de letras encontrada sea igual a las letras a encontrar
+ * @param e
+ * @return 
+ */
     public Ahorcadito finJuego(Ahorcadito e) {
         int numero = 0;
         if ((e.getCantJugMax() <= 0)) {
