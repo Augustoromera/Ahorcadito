@@ -2,7 +2,8 @@ package servicio;
 
 import entidades.Ahorcadito;
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import ventana.VentanaPVP;
 public class AhorcaditoServicio {
 
     Ahorcadito objetoAhorcadito = new Ahorcadito();
@@ -12,13 +13,10 @@ public class AhorcaditoServicio {
     ademas la palabra a buscar tambien en un string
     y la cantidad de jugadas maximas
     */
-    public Ahorcadito crearJuego() {
+    public Ahorcadito crearJuego(String pal,int vidasMax) {
         Scanner leer = new Scanner(System.in).useDelimiter("\n");
         Ahorcadito e = new Ahorcadito();
-        String pal;
-        System.out.println("INGRESE LA PALABRA PARA JUGAR:");
 
-        pal = leer.next();
         for (int i = 0; i < 10; i++) {
             System.out.println("");
         }
@@ -26,10 +24,10 @@ public class AhorcaditoServicio {
         String[] palabraABuscar = new String[pal.length()];
         for (int i = 0; i < pal.length(); i++) {
             palabraABuscar[i] = pal.substring(i, i + 1);
+            e.setPalABuscar(palabraABuscar[i]);
         }
         e.setPalabraABuscar(palabraABuscar);
-        System.out.println("INGRESE LA CANTIDAD DE JUGADAS MAXIMAS (VIDAS):");
-        e.setCantJugMax(leer.nextInt());
+        e.setCantJugMax(vidasMax);
 
         return e;
     }
@@ -54,22 +52,26 @@ public class AhorcaditoServicio {
  * contiene el vector que posee la palabra que uno va encontrando mas las palabras que faltan reemplazadas como guion bajo
  * @param l
  * @param e
- * @param palEncontrada
+     * @param palEncontradaa
  * @return 
  */
-    public Ahorcadito buscar(String l, Ahorcadito e, String[] palEncontrada) {
-        String pal;
+    public Ahorcadito buscar(String l, Ahorcadito e, ArrayList<String> palEncontradaa,VentanaPVP ventana) {
+        System.out.println("hola");
+        String pal="";
         int cant = 0;
-
         pal = e.getPal();
         String palabraABuscar[] = new String[pal.length()];
+         String palEncontrada[] = new String[pal.length()];
+        for (int i = 0; i < pal.length(); i++) {
+           palEncontrada[i]=palEncontradaa.get(i);
+        }
         if (e.getInicios() == 0) {
             for (int i = 0; i < pal.length(); i++) {
                
                 if (i == 0) {
                     palEncontrada[0] = e.getPal().substring(0, 1).toUpperCase();
                 } else if(i==pal.length()-1){
-                palEncontrada[pal.length()-1]=e.getPal().substring(pal.length()-1, pal.length()).toUpperCase();
+                
                 }else{palEncontrada[i]="";}
                
             }
@@ -92,20 +94,27 @@ public class AhorcaditoServicio {
         }
         e.setCantLetEnco(e.getCantLetEnco() + cant);
         if (cant == 0) {
-            System.out.println("La letra no fue encontrada");
+            ventana.setCartelUno("La letra no fue encontrada");
             e.setCantJugMax(e.getCantJugMax() - 1);
         } else {
-            System.out.println("La letra fue encontrada " + cant + " veces");
+            ventana.setCartelUno("La letra fue encontrada " + cant + " veces");
         }
-        System.out.println("Le faltan " + (e.getPal().length() - e.getCantLetEnco()) + " por encontrar");
+        ventana.setCartelDos("Le faltan " + (e.getPal().length() - e.getCantLetEnco()) + " por encontrar");
         
         System.out.println("");
+        String palEcontradaEnString="";
         for (int i = 0; i < e.getPal().length(); i++) {
             System.out.print(palEncontrada[i]);
+            palEcontradaEnString=palEcontradaEnString.concat(palEncontrada[i]);
 
         }
+        ventana.setjLineaGuion(palEcontradaEnString.toUpperCase());
         System.out.println("");
         e.setInicios(1);
+        palEncontradaa.removeAll(palEncontradaa);
+        for (int i = 0; i < pal.length(); i++) {
+          e.setPalABuscar(palEncontrada[i]);
+        }
         return e;
     }
 /**
@@ -113,8 +122,8 @@ public class AhorcaditoServicio {
  * @param e
  * @return 
  */
-    public Ahorcadito intentos(Ahorcadito e) {
-        System.out.println("Sus intentos restantes son: " + e.getCantJugMax());
+    public Ahorcadito intentos(Ahorcadito e,VentanaPVP ventana) {
+        ventana.setIntentosYSiGanoONO("Sus intentos restantes son: " + e.getCantJugMax());
 
         return e;
     }
@@ -124,7 +133,7 @@ public class AhorcaditoServicio {
  * @param e
  * @return 
  */
-    public Ahorcadito finJuego(Ahorcadito e) {
+    public Ahorcadito finJuego(Ahorcadito e,VentanaPVP ventana) {
         int numero = 0;
         if ((e.getCantJugMax() <= 0)) {
             numero = 1;

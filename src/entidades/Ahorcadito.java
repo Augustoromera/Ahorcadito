@@ -1,5 +1,6 @@
 
 package entidades;
+import java.util.ArrayList;
 public class Ahorcadito {
     
 
@@ -7,6 +8,25 @@ public class Ahorcadito {
         this.cantLetEnco = cantLetEnco;
         this.cantJugMax = cantJugMax;
         this.pal = pal;
+    }
+    ArrayList<String>palABuscar;
+    
+
+    @Override
+    public String toString() {
+        return "Ahorcadito{" + "palABuscar=" + palABuscar + ", cantLetEnco=" + cantLetEnco + ", cantJugMax=" + cantJugMax + ", numPal=" + numPal + ", numero=" + numero + ", inicios=" + inicios + ", pal=" + pal + ", palabraABuscar=" + palabraABuscar + ", palabraEncontrada=" + palabraEncontrada + '}';
+    }
+
+    public void setPalABuscar(String palABuscar) {
+        this.palABuscar.add(palABuscar);
+    }
+
+    public ArrayList<String> getPalABuscar() {
+        return palABuscar;
+    }
+     public void getPalABuscarEnString() {
+        for (String string : this.palABuscar) {
+        }
     }
     int cantLetEnco;
     int cantJugMax;
@@ -85,5 +105,6 @@ String palabraEncontrada="";
         this.palabraEncontrada = palabraEncontrada;
     }
     public Ahorcadito() {
+        this.palABuscar=new ArrayList();
     }
 }
